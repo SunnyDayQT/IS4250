@@ -113,3 +113,17 @@ df_4=data.frame(tc,bmi)
 chart_3=ggplot(df_4,aes(tc,bmi,group=1))+geom_line()
 print(chart_3)
 
+
+#Question (e)
+data_e=data[,c(1,2,6,11,13)]
+data_e[,"BMI"]=BMI
+data_e=data_e[data_e$TC!="na",]
+data_e[,5]=as.numeric(as.character(data_e[,5]))
+
+model=lm(BMI ~ AGE+Citizen+Gender+SBP+TC,data=data_e)
+case=data.frame(AGE=45,Citizen="N",Gender="M",SBP=135,TC=150)
+pre_result=predict(model,newdata=case)
+print(pre_result)
+
+
+
