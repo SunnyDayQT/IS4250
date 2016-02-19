@@ -10,7 +10,7 @@ cat("Yes and the difference is",abs(differ))
 #Question(b)
 testor = rbind(c(3,7),c(4,2))
 fisher.test(testor)
-cat("No, the differnce is not statistically different.")
+cat("No, the differnce is not statistically different since the confidence level is less than 70%.")
 
 #Question(c)
 cat("Cannot use chi-square test because it is used for the sample whose size is large")
