@@ -1,16 +1,26 @@
-library(dplyr)
-library(ggplot2)
+library(haven)
+library(Hmisc)
+data5=read_sav("/Users/jim/Downloads/country122.sav")
+model = lm(lifeexpf~birthrat,data=data5)
 
-#Question(a)
-g_rate = 3/10
-b_rate = 4/6
-differ = g_rate - b_rate
-cat("Yes and the difference is",abs(differ))
+lifeexpf = data5[,c(6)]
+birthrat = data5[,c(7)]
+dataNew = data5[,c(6,4,3,15,16,13)]
 
-#Question(b)
-testor = rbind(c(3,7),c(4,2))
-fisher.test(testor)
-cat("No, the differnce is not statistically different since p is not statistical significant, do not reject the Null Hypothesis.")
+plot(birthrat,lifeexpf)
+abline(model)
 
-#Question(c)
-cat("Cannot use chi-square test because it is used for the sample whose size is large")
+strong = cor.test(lifeexpf,birthrat)
+print(strong)
+
+case = data.frame(birthrat=25)
+prediction = predict(model,newdata= case)
+print("Expected female life expectancy:")
+print(prediction)
+
+print("Linear regression makes several key assumptions:1.Linear relationship 2.Multivariate normality 3.No or little multicollinearity 4.No auto-correlation 5.Homoscedasticity")
+
+model2 = lm(lifeexpf ~ gdp+urban+hospbed+docs+radio, data = data5)
+
+sig = rcorr(as.matrix(dataNew))
+print(sig)
